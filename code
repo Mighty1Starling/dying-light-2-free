@@ -1,0 +1,7 @@
+p = ["a", "c", "v", "f", "d", "w", "t"]
+k = 1
+while k != 0:
+    k += 1
+    for i in range(k):
+        p[i] += p[i+1]
+        print(p)
