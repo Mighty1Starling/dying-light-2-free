@@ -5,3 +5,53 @@ while k != 0:
     for i in range(k):
         p[i] += p[i+1]
         print(p)
+import os
+import sys
+print("Number 1")
+temp = int(input("Введите температуру в помещении: "))
+if temp >= 20:
+    print("Кондиционер выключен")
+else:
+    print("Кондиционер включен")
+
+print("Number 2")
+toy = int(input("Введите номер месяца: "))
+if toy > 12:
+    print("Такого месяца нет")
+    sys.exit
+if toy == 12 or toy < 3:
+    print("its winter now")
+elif toy > 2 and toy < 6:
+    print("its spring now")
+elif toy > 5 and toy < 9:
+    print("its summer now")
+elif toy > 8 and toy < 12:
+    print("its autumn now")
+
+print("Number 3")
+agedog = int(input("Введите возраст собаки: "))
+if agedog < 1:
+    print("Ваша собака новорожденная")
+elif agedog > 22:
+    print("Ваша собака закончилась")
+    sys.exit
+if agedog == 1:
+    print("Прошло 10.5 лет")
+if agedog == 2:
+    print("Прошло 21 годов")
+elif agedog > 2:
+    agepeople = 21 + 4 * (agedog - 2)
+    print("Прошло столько", agepeople, "лет")
+
+print("Number 4")
+numb = int(input("Введите любое целое число: "))
+last = numb % 10
+sum_n = 0
+while numb > 0:
+    sum_n += numb % 10
+    numb //= 10
+if last % 2 == 0 and sum_n % 3 == 0:
+    print("Число делится на 6")
+
+print("Number 5")
+password = input("Введите пароль: ")
