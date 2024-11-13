@@ -1,3 +1,43 @@
-n = 1
-while n != 0:
-    print("Hello world")
+from random import *
+print("Number 1")
+number1 = []
+for i in range(10):
+    numb1 = randint(1, 10)
+    number1.append(numb1)
+print(number1)
+for j in range(10):
+    if number1[j] == 3:
+        number1[j] = 30
+print(number1)
+    
+
+print("Number 2")
+number2 = []
+for i in range(5):
+    numb2 = randint(1, 10)
+    number2.append(numb2)
+print(number2)
+for j in range(5):
+    number2[j] **= 2
+print(number2)
+
+print("Number 3")
+number3 = []
+count = randint(1, 100)
+for i in range(count):
+    numb3 = randint(1, 100)
+    number3.append(numb3)
+print(max(number3) / len(number3))
+
+print("Number 4")
+number4 = []
+count = int(input("Введите длину картежа: "))
+for i in range(count):
+    numb4 = input("Введите элемент картежа: ")
+    number4.append(numb4)
+tup = tuple(number4)
+print(tup)
+reg = []
+for i in range():
+    
+
