@@ -1,12 +1,6 @@
-p = ["a", "c", "v", "f", "d", "w", "t"]
-k = 1
-while k != 0:
-    k += 1
-    for i in range(k):
-        p[i] += p[i+1]
-        print(p)
 import os
 import sys
+
 print("Number 1")
 temp = int(input("Введите температуру в помещении: "))
 if temp >= 20:
@@ -52,6 +46,25 @@ while numb > 0:
     numb //= 10
 if last % 2 == 0 and sum_n % 3 == 0:
     print("Число делится на 6")
-
+else:
+    print("Число не делится на 6")
+    
 print("Number 5")
 password = input("Введите пароль: ")
+if len(password) >= 8:
+    if any(char.isupper() for char in password):
+        if any(char.islower() for char in password):
+            if any(char.isdigit() for char in password):
+                print("password correct")
+            else:
+                print("Отсутсвуют цифры")
+                sys.exit
+        else:
+            print("Отсутсвуют строчные буквы")
+            sys.exit
+    else:
+        print("Отсутсвует заглавная буква")
+        sys.exit
+else:
+    print("Пароль которкий")
+    sys.exit
