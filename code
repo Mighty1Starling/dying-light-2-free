@@ -1,70 +1,44 @@
-import os
-import sys
-
 print("Number 1")
-temp = int(input("Введите температуру в помещении: "))
-if temp >= 20:
-    print("Кондиционер выключен")
-else:
-    print("Кондиционер включен")
+tasks = [("Проверить почту", 3), ("Написать отчёт", 1), ("Позвонить клиенту", 2)]
+fuc = sorted(tasks, key = lambda x: x[1:])
+print(fuc)
 
 print("Number 2")
-toy = int(input("Введите номер месяца: "))
-if toy > 12:
-    print("Такого месяца нет")
-    sys.exit
-if toy == 12 or toy < 3:
-    print("its winter now")
-elif toy > 2 and toy < 6:
-    print("its spring now")
-elif toy > 5 and toy < 9:
-    print("its summer now")
-elif toy > 8 and toy < 12:
-    print("its autumn now")
+purchases = [
+    {"item": "Laptop", "price": 1000, "quantity": 2},
+    {"item": "Mouse", "price": 25, "quantity": 5},
+    {"item": "Keyboard", "price": 45, "quantity": 3}
+]
+total_cost = list(map(lambda x: x["price"] * x["quantity"], purchases))
+print(total_cost, "Максимальная общая сумма: ", max(total_cost))
 
 print("Number 3")
-agedog = int(input("Введите возраст собаки: "))
-if agedog < 1:
-    print("Ваша собака новорожденная")
-elif agedog > 22:
-    print("Ваша собака закончилась")
-    sys.exit
-if agedog == 1:
-    print("Прошло 10.5 лет")
-if agedog == 2:
-    print("Прошло 21 годов")
-elif agedog > 2:
-    agepeople = 21 + 4 * (agedog - 2)
-    print("Прошло столько", agepeople, "лет")
+clients = [
+    {"name": "Alice", "income": 50000},
+    {"name": "Bob", "income": 120000},
+    {"name": "Charlie", "income": 70000}
+]
+category = list(map(lambda x: {"name": x['name'], "income": x['income'], "category": "High" if x['income'] > 100000 else "Medium" if x['income'] >= 50000 else "Low"}, clients))
+print(category)
 
 print("Number 4")
-numb = int(input("Введите любое целое число: "))
-last = numb % 10
-sum_n = 0
-while numb > 0:
-    sum_n += numb % 10
-    numb //= 10
-if last % 2 == 0 and sum_n % 3 == 0:
-    print("Число делится на 6")
-else:
-    print("Число не делится на 6")
-    
-print("Number 5")
-password = input("Введите пароль: ")
-if len(password) >= 8:
-    if any(char.isupper() for char in password):
-        if any(char.islower() for char in password):
-            if any(char.isdigit() for char in password):
-                print("password correct")
-            else:
-                print("Отсутсвуют цифры")
-                sys.exit
-        else:
-            print("Отсутсвуют строчные буквы")
-            sys.exit
-    else:
-        print("Отсутсвует заглавная буква")
-        sys.exit
-else:
-    print("Пароль которкий")
-    sys.exit
+flights = [
+    {"flight": "A1", "departure": 9, "arrival": 12},
+    {"flight": "B2", "departure": 14, "arrival": 18},
+    {"flight": "C3", "departure": 6, "arrival": 8}
+]
+early_flights = list(filter(lambda x: x['arrival'] < 12, flights))
+print(early_flights)
+
+print("Nubmer 5")
+messages = [
+    {"user": "Исследователь А", "message": "Отчёт готов. Ссылка: http://foundation.org"},
+    {"user": "Доктор Б", "message": "Документы можно найти здесь: https://classified.com"},
+    {"user": "Охранник В", "message": "Нет аномальной активности за смену."},
+    {"user": "Агент Г", "message": "Срочно изучите материалы по объекту 173 на http://statue-database.net"},
+    {"user": "Д-р Кляйн", "message": "Обновлённый протокол эксперимента доступен: https://safezone.scp"},
+    {"user": "Сотрудник Д", "message": "Просьба ознакомиться с https://docs.anomalies-secure.com перед сменой."},
+    {"user": "Старший учёный Л", "message": "Все записи переданы. Никаких аномалий на объекте 096."},
+    {"user": "Техник З", "message": "Проблема с сервером устранена. Подробнее: http://fix-report.internal"}
+]
+
