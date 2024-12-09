@@ -1,22 +1,10 @@
 from random import *
+from keyboard import *
 #___Создание персонажа___
-Player = input("Введите имя персонажа ---> ") #Ввод имен персонажа
 
-def stat(health, defense, attack): #Случайное распледеление характеристик
-    print(" Здоровье: ", health, "\n", "Защита: ", defense, "\n", "Сила: ", attack)
-    print("Желаете перераспределить характеристики?")
-    answer = input()
-    if answer == "да":
-        health, defense, attack = randint(4, 10), randint(1, 10), randint(4, 7)
-        print(" Здоровье: ", health, "\n", "Защита: ", defense, "\n", "Сила: ", attack)
-    elif answer == "нет":
-        print("Характеристики прежние")
-
-game = stat(randint(4, 10), randint(1, 10), randint(4, 7))
-
-#___Механика боя___
-
-def fight(motion):
-    motion = input("Какое действие вы хотите применить(атака или использование предета)?")
-    if motion == "атака":
-        enemy[1] - game
+def stat(health, defense, attack): #Случайное распледеление характеристик]
+    Player = input("Введите имя персонажа ---> ") #Ввод имен персонажа
+    print("Выберите персонажа", "\n", "1. Paladin", "\n", "2. Knight", "\n", "3. Wizard", "\n", "Введите номер прсонажа")
+    add_hotkey("ctrl+1", lambda health = 0, defense = 0, attack = 0: print("Вы выбрали Paladin, его характеристики: ", health + randint(1, 5), defense + randint(7, 10), attack + randint(3, 5)))
+    add_hotkey("ctrl+2", lambda health = 0, defense = 0, attack = 0: print("Вы выбрали Knight, его характеристики: ", health + randint(4, 8), defense + randint(3, 5), attack + randint(4, 6)))
+    add_hotkey("ctrl+3", lambda health = 0, defense = 0, attack = 0: print("Вы выбрали Wizard, его характеристики: ", health + randint(3, 5), defense + randint(2, 3), attack + randint(7, 10)))
