@@ -1,10 +1,20 @@
-from random import *
-from keyboard import *
+import random
+import keyboard
 #___Создание персонажа___
 
-def stat(health, defense, attack): #Случайное распледеление характеристик]
+def stat(): #Случайное распледеление характеристик]
     Player = input("Введите имя персонажа ---> ") #Ввод имен персонажа
+    stats = [{"health": 0},
+             {"defense": 0},
+             {"attack": 0}
+]
     print("Выберите персонажа", "\n", "1. Paladin", "\n", "2. Knight", "\n", "3. Wizard", "\n", "Введите номер прсонажа")
-    add_hotkey("ctrl+1", lambda health = 0, defense = 0, attack = 0: print("Вы выбрали Paladin, его характеристики: ", health + randint(1, 5), defense + randint(7, 10), attack + randint(3, 5)))
-    add_hotkey("ctrl+2", lambda health = 0, defense = 0, attack = 0: print("Вы выбрали Knight, его характеристики: ", health + randint(4, 8), defense + randint(3, 5), attack + randint(4, 6)))
-    add_hotkey("ctrl+3", lambda health = 0, defense = 0, attack = 0: print("Вы выбрали Wizard, его характеристики: ", health + randint(3, 5), defense + randint(2, 3), attack + randint(7, 10)))
+    keyboard.add_hotkey("ctrl+1", lambda x: x["health"] == random.randint(1, 5), x["defense"] == random.randint(7, 10), x["attack"] == random.randint(3, 5), stats)
+    keyboard.add_hotkey("ctrl+2", lambda x: x["health"] == random.randint(4, 8), x["defense"] == random.randint(3, 5), x["attack"] == random.randint(4, 6), stats)
+    keyboard.add_hotkey("ctrl+3", lambda x: x["health"] == random.randint(3, 5), x["defense"] == random.randint(2, 3), x["attack"] == random.randint(7, 10), stats)
+
+game = stat()
+#___Создание врагов___
+
+def enemy():
+    enemys = [goblin, undead, chimera, bandint]
