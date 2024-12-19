@@ -1,24 +1,21 @@
-print("Number 1")
-tasks = [("Проверить почту", 3), ("Написать отчёт", 1), ("Позвонить клиенту", 2)]
-fuc = sorted(tasks, key = lambda x: x[1:])
-print(fuc)
+import random
+import keyboard
+#___Создание персонажа___
 
-print("Number 2")
-purchases = [
-    {"item": "Laptop", "price": 1000, "quantity": 2},
-    {"item": "Mouse", "price": 25, "quantity": 5},
-    {"item": "Keyboard", "price": 45, "quantity": 3}
-]
-new = []
-fuc2 = list(map(lambda x: x["price"] * x["quantity"], purchases))
-print(fuc2, max(fuc2))
+def stat(): #Случайное распледеление характеристик]
+    Player = input("Введите имя персонажа ---> ") #Ввод имен персонажа
+    stats = {"health": 0, "defense": 0, "attack": 0}
+    paladin = list(map((lambda x: x["health"] == random.randint(1, 5), stats), (lambda y: y["defense"] == random.randint(7, 10), stats), (lambda z: z["attack"] == random.randint(3, 5), stats)))
+    knight = list(map((lambda x: x["health"] == random.randint(4, 8), stats), (lambda y: y["defense"] == random.randint(3, 5), stats), (lambda z: z["attack"] == random.randint(4, 6), stats)))
+    wizard = list(map((lambda x: x["health"] == random.randint(3, 5), stats), (lambda y: y["defense"] == random.randint(2, 3), stats), (lambda z: z["attack"] == random.randint(7, 10), stats)))
+    print("Выберите персонажа", "\n", "1. Paladin", "\n", "2. Knight", "\n", "3. Wizard", "\n", "Введите номер прсонажа")
+    keyboard.add_hotkey("ctrl+1", print(paladin))
+    keyboard.add_hotkey("ctrl+2", print(knight))
+    keyboard.add_hotkey("ctrl+3", print(wizard))
 
-print("Number 3")
-clients = [
-    {"name": "Alice", "income": 50000},
-    {"name": "Bob", "income": 120000},
-    {"name": "Charlie", "income": 70000}
-]
-fuc3 = list(map(lambda x: x["category"] = "high" if x["income"] > 100000, clients))
-print(fuc3)
 
+game = stat()
+#___Создание врагов___
+
+def enemy():
+    enemys = [goblin, undead, chimera, bandint]
