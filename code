@@ -1,20 +1,27 @@
 import random
-import keyboard
-#___Создание персонажа___
+n = 1
+while n != 0:
+    name = input("Ваше имя? ")
+    player_hp = random.randint(7, 10)
+    player_attack = random.randint(4, 6)
+    player_defense = random.randint(3, 5)
+    place = {1: "Густой лес", 2: "Каменные предгорья", 3: "Водопад"}
+    enemys = {1: "Зомби", 2: "Волк", 3: "Оборотень"}
+    items = {1: "Зелье силы", 2: "Зелье здоровья", 3: "Печенье"}
 
-def stat(): #Случайное распледеление характеристик]
-    Player = input("Введите имя персонажа ---> ") #Ввод имен персонажа
-    stats = [{"health": 0},
-             {"defense": 0},
-             {"attack": 0}
-]
-    print("Выберите персонажа", "\n", "1. Paladin", "\n", "2. Knight", "\n", "3. Wizard", "\n", "Введите номер прсонажа")
-    keyboard.add_hotkey("ctrl+1", lambda x: x["health"] == random.randint(1, 5), x["defense"] == random.randint(7, 10), x["attack"] == random.randint(3, 5), stats)
-    keyboard.add_hotkey("ctrl+2", lambda x: x["health"] == random.randint(4, 8), x["defense"] == random.randint(3, 5), x["attack"] == random.randint(4, 6), stats)
-    keyboard.add_hotkey("ctrl+3", lambda x: x["health"] == random.randint(3, 5), x["defense"] == random.randint(2, 3), x["attack"] == random.randint(7, 10), stats)
+    points = 5
+    for i in range(points):
+        print(f"Ваши характеристики: Атака - {player_attack}, Здоровье - {player_hp}, Защита - {player_defense}")
+        print(" Увеличить атаку(1)", '\n', "Увеличить здоровье(2)", '\n', "Увеличить защиту(3)")
+        choice = int(input("Выберите: "))
+        if choice == 1:
+            player_attack += 1
+        elif choice == 2:
+            player_hp += 1
+        elif choice == 3:
+            player_defense += 1
+        else:
+            print("Некоректное значение")
 
-game = stat()
-#___Создание врагов___
-
-def enemy():
-    enemys = [goblin, undead, chimera, bandint]
+    while player_health != 0:
+        
