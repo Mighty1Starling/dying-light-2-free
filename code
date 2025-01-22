@@ -1,27 +1,164 @@
 import random
-n = 1
-while n != 0:
-    name = input("Ваше имя? ")
-    player_hp = random.randint(7, 10)
-    player_attack = random.randint(4, 6)
-    player_defense = random.randint(3, 5)
-    place = {1: "Густой лес", 2: "Каменные предгорья", 3: "Водопад"}
-    enemys = {1: "Зомби", 2: "Волк", 3: "Оборотень"}
-    items = {1: "Зелье силы", 2: "Зелье здоровья", 3: "Печенье"}
 
-    points = 5
-    for i in range(points):
-        print(f"Ваши характеристики: Атака - {player_attack}, Здоровье - {player_hp}, Защита - {player_defense}")
-        print(" Увеличить атаку(1)", '\n', "Увеличить здоровье(2)", '\n', "Увеличить защиту(3)")
-        choice = int(input("Выберите: "))
+class Character:
+    def __init__(self, name, attack=None, defense=None, health=None):
+        self.name = name
+        self.attack = attack or random.randint(5, 10)
+        self.defense = defense or random.randint(3, 7)
+        self.max_health = health or random.randint(20, 30)
+        self.health = self.max_health
+        self.level = 1
+        self.exp = 0
+        self.inventory = []
+    
+    def redistribute_points(self, points=5):
+        print(f"Текущие характеристики: Атака {self.attack}, Защита {self.defense}, Здоровье {self.max_health}")
+        for _ in range(points):
+            print("1 - Увеличить Атаку")
+            print("2 - Увеличить Защиту")
+            print("3 - Увеличить Здоровье")
+            choice = int(input("Выберите характеристику для улучшения: "))
+            if choice == 1:
+                self.attack += 1
+            elif choice == 2:
+                self.defense += 1
+            elif choice == 3:
+                self.max_health += 1
+                self.health = self.max_health
+    
+    def level_up(self):
+        self.level += 1
+        self.exp = 0
+        print(f"{self.name} повысил уровень! Теперь вы {self.level} уровня.")
+        self.redistribute_points(5)
+
+
+class Enemy:
+    def __init__(self, name, attack, defense, health):
+        self.name = name
+        self.attack = attack
+        self.defense = defense
+        self.health = health
+
+
+class Item:
+    def __init__(self, name, bonus_type, bonus_value):
+        self.name = name
+        self.bonus_type = bonus_type
+        self.bonus_value = bonus_value
+
+    def use(self, character):
+        print(f"{character.name} использует {self.name}!")
+        if self.bonus_type == "heal":
+            character.health = min(character.health + self.bonus_value, character.max_health)
+            print(f"Здоровье восстановлено на {self.bonus_value}. Текущее здоровье: {character.health}")
+        elif self.bonus_type in ["attack", "defense"]:
+            setattr(character, self.bonus_type, getattr(character, self.bonus_type) + self.bonus_value)
+            print(f"{self.bonus_type.capitalize()} увеличена на {self.bonus_value}!")
+
+
+class Location:
+    def __init__(self, name, description, enemy=None, chest=None):
+        self.name = name
+        self.description = description
+        self.enemy = enemy
+        self.chest = chest
+
+
+def fight(player, enemy):
+    print(f"Бой начинается! Вы сражаетесь против {enemy.name}.")
+    while player.health > 0 and enemy.health > 0:
+        print(f"\n{player.name}: {player.health}/{player.max_health} HP")
+        print(f"{enemy.name}: {enemy.health} HP")
+        print("1 - Атаковать")
+        print("2 - Использовать предмет")
+        print("3 - Уклониться")
+        choice = int(input("Ваш выбор: "))
         if choice == 1:
-            player_attack += 1
+            damage = max(0, player.attack - enemy.defense)
+            enemy.health -= damage
+            print(f"Вы нанесли {damage} урона {enemy.name}.")
         elif choice == 2:
-            player_hp += 1
+            if player.inventory:
+                for i, item in enumerate(player.inventory, 1):
+                    print(f"{i} - {item.name}")
+                item_choice = int(input("Выберите предмет: ")) - 1
+                if 0 <= item_choice < len(player.inventory):
+                    player.inventory[item_choice].use(player)
+            else:
+                print("У вас нет предметов!")
         elif choice == 3:
-            player_defense += 1
-        else:
-            print("Некоректное значение")
+            if random.random() < 0.5:
+                print("Вы успешно уклонились!")
+                continue
+            else:
+                print("Уклонение не удалось.")
+        if enemy.health > 0:
+            damage = max(0, enemy.attack - player.defense)
+            player.health -= damage
+            print(f"{enemy.name} нанес вам {damage} урона.")
+    if player.health > 0:
+        print(f"Вы победили {enemy.name}!")
+        player.exp += 10
+        if player.exp >= 10 * player.level:
+            player.level_up()
+    else:
+        print("Вы проиграли. Конец игры.")
+        exit()
 
-    while player_health != 0:
-        
+def main():
+    name = input("Введите имя вашего персонажа: ")
+    player = Character(name)
+    print(f"Добро пожаловать, {player.name}!")
+    player.redistribute_points()
+
+    enemies_pool = [
+        Enemy("Волк", 6, 3, 15),
+        Enemy("Медведь", 12, 5, 25),
+        Enemy("Гоблин", 8, 4, 20),
+        Enemy("Разбойник", 10, 6, 30)
+    ]
+
+    locations = [
+        Location("Лес", "Тихий лес с пением птиц.", random.choice(enemies_pool)),
+        Location("Пещера", "Темная и сырая пещера.", random.choice(enemies_pool), chest=Item("Зелье здоровья", "heal", 10)),
+        Location("Поле", "Открытое поле с высокой травой.")
+    ]
+
+    while player.health > 0:
+        print("\nВыберите локацию:")
+        for i, loc in enumerate(locations, 1):
+            print(f"{i}) {loc.name}: {loc.description}")
+
+        choice = int(input("Ваш выбор: ")) - 1
+        if 0 <= choice < len(locations):
+            location = locations[choice]
+            print(f"\nВы прибыли в {location.name}!")
+
+            # Проверка на наличие врага
+            if location.enemy:
+                print(f"Вы встретили врага: {location.enemy.name}!")
+                fight(player, location.enemy)
+                
+                if location.enemy.health <= 0:  # Если враг побеждён
+                    print(f"Вы победили {location.enemy.name}!")
+                    location.enemy = random.choice(enemies_pool)  # Новый враг появляется
+            else:
+                print("Здесь никого нет. Можно отдохнуть.")
+                player.health = player.max_health
+                print("Ваше здоровье полностью восстановлено.")
+
+            # Проверка сундука
+            if location.chest:
+                print(f"Вы нашли сундук с предметом: {location.chest.name}!")
+                player.inventory.append(location.chest)
+                location.chest = None  # Сундук забрали
+
+        else:
+            print("Некорректный выбор.")
+
+
+
+if __name__ == "__main__":
+    main()
+
